@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+	body {
+		font-family: 'Product Sans'
+	}
+	.elcreativeToc {
+		padding: 15px 30px;
+		margin: 0;
+		border: 1px solid #dadce0;
+		border-radius: 8px;
+	} 
+	.elcreativeToc a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.elcreativeToc a:hover {
+		text-decoration: underline;
+	}
+	.elcreativeToc button {
+		color: inherit;
+		background: 0 0;
+		font-size: 20px;
+		position: relative;
+		outline: 0;
+		border: none;
+		padding: 0;
+		font-family: inherit;
+		font-weight: 500;
+	}
+	.elcreativeToc button a:hover { 
+		cursor: pointer;
+	} 
+	.elcreativeToc ol {
+		counter-reset: section;
+		list-style: none;
+	}
+	.elcreativeToc ol:first-child {
+		padding: 0;
+	}
+	.elcreativeToc ol > :first-child {
+		counter-reset: counter;
+	}
+	.elcreativeToc ol li::before {
+		counter-increment: counter;
+		content: counters(counter,".")". ";
+	}
+	.elcreativeToc li {
+		margin: 5px 0;
+		padding: 0;
+		line-height: 1.5em;
+		list-style: none !important;
+	}
+
+</style>
+<script>
+	function elcreativeToc() {
+		var number = 0, 
+		counter = 0, 
+		space = "";
+
+		document.getElementById("postToc").innerHTML = document.getElementById("postToc").innerHTML.replace(/<h([\d]).*?>\n(.*?)<\/h([\d]).*?>/gi, function(d, e, f, g) {
+			return e != g ? d : (e > number ? space += new Array(e - number + 1).join("<ol class='toc" + number + "'>") : e < number && (space += new Array(number - e + 1).join("</ol></li>")), counter += 1, space += '<li><a href="#toc' + counter + '">' + f + "</a>", number = parseInt(e), "<h" + e + " id='toc" + counter + "'>" + f + "</h" + g + ">")
+		}), number && (space += new Array(number + 1).join("</ol>")), document.getElementById("elcreativeTable").innerHTML += space
+	}
+
+	function elcreativeTocToggle() {
+		var table = document.getElementById("elcreativeTable"),
+		toggle = document.getElementById("toggles");
+		"none" === table.style.display ? (table.style.display = "block", toggle.innerHTML = "Sembunyikan") : (table.style.display = "none", toggle.innerHTML = "Tampilkan")
+	}
+</script>
+</head>
+<body>
+	<div id="postToc">
+		Masukkan pembukaan/pendahuluan disini. <br/>
+		<div class="elcreativeToc"> 
+			<button>Daftar Isi <span><a onclick="elcreativeTocToggle()" id="toggles">Sembunyikan</a></span></button> 
+			<div id="elcreativeTable"></div> 
+		</div>
+		Masukkan isi konten disini. <br/>
+
+		<h1>
+		Heading 1</h1>
+
+		<h2>
+		Heading 1.1</h2>
+
+		<h1>
+		Heading 2</h1>
+
+		<h2>
+		Heading 2.1</h2>
+
+		<h1>
+		Heading 3</h1>
+		<h1>
+		Heading 4</h1>
+
+		<script>elcreativeToc();</script>
+	</div>
+</body>
+</html>
