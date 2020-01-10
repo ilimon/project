@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recent Comment Widget Blogger</title>
+    <style type="text/css">
+        .elcreative-recent-comments {border-bottom: .0625rem solid #dadce0; padding: 15px 0;}
+        .elcreative-recent-comments a {text-decoration: underline; }
+        .elcreative-recent-comments__author a {text-decoration: none; }
+    </style>
+</head>
+<body>
+    <script>
+    // Jumlah Komentar yang ingin ditampilkan
+    var jumlahKomentar = 5;
+
+    // true = menampilkan tanggal komentar
+    // false = menyembunyikan tanggal komentar
+    var tanggalKomentar = false;
+
+    // true = menampilkan judul artikel yang dikomentari
+    // false = menyembunyikan judul artikel yang dikomentari
+    var judulArtikelKomentar = true;
+
+    // Jumlah maksimal karakter komentar
+    var jumlahKarakterKomentar = 100;
+
+    function showrecentcomments(e) {
+        for (var jsonFeed = 0; jsonFeed < jumlahKomentar; jsonFeed++) {
+            var entryFeed, entryFeeds = e.feed.entry[jsonFeed];
+            if (jsonFeed == e.feed.entry.length) break;
+            for (var i = 0; i < entryFeeds.link.length; i++)
+                if ("alternate" == entryFeeds.link[i].rel) {
+                    entryFeed = entryFeeds.link[i].href;
+                    break
+                }
+
+                entryFeed = entryFeed.replace("#", "#");
+
+                var entryFeedSplit = entryFeed.split("#");
+                entryFeedSplit = entryFeedSplit[0];
+
+                var entryFeedSlashSplit = entryFeedSplit.split("/");
+                entryFeedSlashSplit = entryFeedSlashSplit[5], entryFeedSlashSplit = entryFeedSlashSplit.split(".html"), entryFeedSlashSplit = entryFeedSlashSplit[0];
+
+                var entryFeedSplitReplace = entryFeedSlashSplit.replace(/-/g, " ");
+                entryFeedSplitReplace = entryFeedSplitReplace.link(entryFeedSplit);
+
+                var entryPublished = entryFeeds.published.$t, entryDatePublish = (entryPublished.substring(0, 4), entryPublished.substring(5, 7)), entryDatePublished = entryPublished.substring(8, 10), bulan = new Array;
+
+                if (bulan[1] = "Januari", bulan[2] = "Februari", bulan[3] = "Maret", bulan[4] = "April", bulan[5] = "Mei", bulan[6] = "Juni", bulan[7] = "Juli", bulan[8] = "Agustus", bulan[9] = "September", bulan[10] = "Oktober", bulan[11] = "November", bulan[12] = "Desember", "content" in entryFeeds) var entryContent = entryFeeds.content.$t;
+                else if ("summary" in entryFeeds) var entryContent = entryFeeds.summary.$t;
+                else var entryContent = "";
+
+                var regEx = /<\S[^>]*>/g;
+                if (entryContent = entryContent.replace(regEx, ""), document.write('<div class="elcreative-recent-comments">'), 1 == tanggalKomentar && document.write("On " + bulan[parseInt(entryDatePublish, 10)] + " " + entryDatePublished + " "), document.write('<b class="elcreative-recent-comments__author"><a href="' + entryFeed + '">' + entryFeeds.author[0].name.$t + "</a></b> Berkomentar"), 1 == judulArtikelKomentar && document.write(" di Artikel " + entryFeedSplitReplace), 0 == jumlahKarakterKomentar) document.write("</div>");
+                else if (document.write(": "), entryContent.length < jumlahKarakterKomentar) document.write("<i>&#8220;"), document.write(entryContent), document.write("&#8221;</i></div>");
+                else { document.write("<i>&#8220;"), entryContent = entryContent.substring(0, jumlahKarakterKomentar);
+                var entryFinal = entryContent.lastIndexOf(" ");
+                entryContent = entryContent.substring(0, entryFinal), document.write(entryContent + "&hellip;&#8221;</i></div>"), document.write("")
+            }
+        }
+    }
+</script>
+
+<script src="https://www.elcreativeacademy.com/feeds/comments/default?alt=json-in-script&callback=showrecentcomments"></script>
+</body>
+</html>
+
