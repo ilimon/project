@@ -24,44 +24,36 @@
         // Jumlah maksimal karakter komentar
         var jumlahKarakterKomentar = 100;
 
-        function showrecentcomments(e) {
-            for (var jsonFeed = 0; jsonFeed < jumlahKomentar; jsonFeed++) {
-                var entryFeed, entryFeeds = e.feed.entry[jsonFeed];
-                if (jsonFeed == e.feed.entry.length) break;
-                for (var i = 0; i < entryFeeds.link.length; i++)
-                    if ("alternate" == entryFeeds.link[i].rel) {
-                        entryFeed = entryFeeds.link[i].href;
-                        break
-                    }
-
-                    entryFeed = entryFeed.replace("#", "#");
-
-                    var entryFeedSplit = entryFeed.split("#");
-                    entryFeedSplit = entryFeedSplit[0];
-
-                    var entryFeedSlashSplit = entryFeedSplit.split("/");
-                    entryFeedSlashSplit = entryFeedSlashSplit[5], entryFeedSlashSplit = entryFeedSlashSplit.split(".html"), entryFeedSlashSplit = entryFeedSlashSplit[0];
-
-                    var entryFeedSplitReplace = entryFeedSlashSplit.replace(/-/g, " ");
-                    entryFeedSplitReplace = entryFeedSplitReplace.link(entryFeedSplit);
-
-                    var entryPublished = entryFeeds.published.$t, entryDatePublish = (entryPublished.substring(0, 4), entryPublished.substring(5, 7)), entryDatePublished = entryPublished.substring(8, 10), bulan = new Array;
-
-                    if (bulan[1] = "Januari", bulan[2] = "Februari", bulan[3] = "Maret", bulan[4] = "April", bulan[5] = "Mei", bulan[6] = "Juni", bulan[7] = "Juli", bulan[8] = "Agustus", bulan[9] = "September", bulan[10] = "Oktober", bulan[11] = "November", bulan[12] = "Desember", "content" in entryFeeds) var entryContent = entryFeeds.content.$t;
-                    else if ("summary" in entryFeeds) var entryContent = entryFeeds.summary.$t;
-                    else var entryContent = "";
-
-                    var regEx = /<\S[^>]*>/g;
-                    if (entryContent = entryContent.replace(regEx, ""), document.write('<div class="elcreative-recent-comments">'), 1 == tanggalKomentar && document.write(bulan[parseInt(entryDatePublish, 10)] + " " + entryDatePublished + " - "), document.write(' <b class="elcreative-recent-comments__author"><a href="' + entryFeed + '">' + entryFeeds.author[0].name.$t + "</a></b> Berkomentar"), 1 == judulArtikelKomentar && document.write(" di Artikel " + entryFeedSplitReplace), 0 == jumlahKarakterKomentar) document.write("</div>");
-                    else if (document.write(": "), entryContent.length < jumlahKarakterKomentar) document.write("<i>&#8220;"), document.write(entryContent), document.write("&#8221;</i></div>");
-                    else { document.write("<i>&#8220;"), entryContent = entryContent.substring(0, jumlahKarakterKomentar);
-                    var entryFinal = entryContent.lastIndexOf(" ");
-                    entryContent = entryContent.substring(0, entryFinal), document.write(entryContent + "&hellip;&#8221;</i></div>"), document.write("")
-                }
+        function showrecentcomments(h) {
+          for (var f = 0; f < jumlahKomentar; f++) {
+            var d = h.feed.entry[f];
+            if (f == h.feed.entry.length) {
+              break;
+          }
+          for (var a = 0; a < d.link.length; a++) {
+              if ("alternate" == d.link[a].rel) {
+                var g = d.link[a].href;
+                break;
             }
         }
-    </script>
+        g = g.replace("#", "#");
+        var e = g.split("#");
+        e = e[0];
+        a = e.split("/");
+        a = a[5];
+        a = a.split(".html");
+        a = a[0];
+        a = a.replace(/-/g, " ");
+        a = a.link(e);
+        var b = d.published.$t;
+        e = (b.substring(0, 4), b.substring(5, 7));
+        var k = b.substring(8, 10), c = [];
+        b = (c[1] = "Januari", c[2] = "Februari", c[3] = "Maret", c[4] = "April", c[5] = "Mei", c[6] = "Juni", c[7] = "Juli", c[8] = "Agustus", c[9] = "September", c[10] = "Oktober", c[11] = "November", c[12] = "Desember", "content" in d) ? d.content.$t : "summary" in d ? d.summary.$t : "";
+        (b = b.replace(/<\S[^>]*>/g, ""), document.write('<div class="elcreative-recent-comments">'), 1 == tanggalKomentar && document.write(c[parseInt(e, 10)] + " " + k + " - "), document.write(' <b class="elcreative-recent-comments__author"><a href="' + g + '">' + d.author[0].name.$t + "</a></b> Berkomentar"), 1 == judulArtikelKomentar && document.write(" di Artikel " + a), 0 == jumlahKarakterKomentar) ? document.write("</div>") : (document.write(": "), b.length < jumlahKarakterKomentar) ? (document.write("<i>&#8220;"), 
+            document.write(b), document.write("&#8221;</i></div>")) : (document.write("<i>&#8220;"), b = b.substring(0, jumlahKarakterKomentar), d = b.lastIndexOf(" "), b = b.substring(0, d), document.write(b + "&hellip;&#8221;</i></div>"), document.write("")); }
+    };
+</script>
 
-    <script src="https://www.elcreativeacademy.com/feeds/comments/default?alt=json-in-script&callback=showrecentcomments"></script>
+<script src="https://www.elcreativeacademy.com/feeds/comments/default?alt=json-in-script&callback=showrecentcomments"></script>
 </body>
 </html>
