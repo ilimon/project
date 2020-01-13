@@ -57,21 +57,19 @@
 
 </style>
 <script>
-	function elcreativeToc() {
-		var number = 0, 
-		counter = 0, 
-		space = "";
-
-		document.getElementById("postToc").innerHTML = document.getElementById("postToc").innerHTML.replace(/<h([\d]).*?>\n(.*?)<\/h([\d]).*?>/gi, function(d, e, f, g) {
-			return e != g ? d : (e > number ? space += new Array(e - number + 1).join("<ol class='toc" + number + "'>") : e < number && (space += new Array(number - e + 1).join("</ol></li>")), counter += 1, space += '<li><a href="#toc' + counter + '">' + f + "</a>", number = parseInt(e), "<h" + e + " id='toc" + counter + "'>" + f + "</h" + g + ">")
-		}), number && (space += new Array(number + 1).join("</ol>")), document.getElementById("elcreativeTable").innerHTML += space
-	}
-
-	function elcreativeTocToggle() {
-		var table = document.getElementById("elcreativeTable"),
-		toggle = document.getElementById("toggles");
-		"none" === table.style.display ? (table.style.display = "block", toggle.innerHTML = "Sembunyikan") : (table.style.display = "none", toggle.innerHTML = "Tampilkan")
-	}
+function elcreativeToc() {
+  var a = 0, c = 0, d = "";
+  document.getElementById("postToc").innerHTML = document.getElementById("postToc").innerHTML.replace(/<h([\d]).*?>\n(.*?)<\/h([\d]).*?>/gi, function(g, b, e, f) {
+    return b != f ? g : (b > a ? d += Array(b - a + 1).join("<ol class='toc" + a + "'>") : b < a && (d += Array(a - b + 1).join("</ol></li>")), c += 1, d += '<li><a href="#toc' + c + '">' + e + "</a>", a = parseInt(b), "<h" + b + " id='toc" + c + "'>" + e + "</h" + f + ">");
+  });
+  a && (d += Array(a + 1).join("</ol>"));
+  document.getElementById("elcreativeTable").innerHTML += d;
+}
+function elcreativeTocToggle() {
+  var a = document.getElementById("elcreativeTable"), c = document.getElementById("toggles");
+  "none" === a.style.display ? (a.style.display = "block", c.innerHTML = "Sembunyikan") : (a.style.display = "none", c.innerHTML = "Tampilkan");
+}
+;
 </script>
 </head>
 <body>
